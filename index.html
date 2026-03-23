@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aniket Sharma — AI & Data Science</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="light-mode">
+
+  <!-- Soft background blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo"><span class="logo-bracket">&lt;</span>Aniket<span class="logo-dot">/</span><span class="logo-bracket">&gt;</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#" class="resume-btn" download>
+      <i class="fas fa-arrow-down"></i> Resume
+    </a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <span class="toggle-track">
+        <span class="toggle-icon sun"><i class="fas fa-sun"></i></span>
+        <span class="toggle-icon moon"><i class="fas fa-moon"></i></span>
+        <span class="toggle-thumb"></span>
+      </span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mob-close" onclick="closeMobile()">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul>
+      <li><a href="#about"          onclick="closeMobile()">About</a></li>
+      <li><a href="#skills"         onclick="closeMobile()">Skills</a></li>
+      <li><a href="#projects"       onclick="closeMobile()">Projects</a></li>
+      <li><a href="#certifications" onclick="closeMobile()">Certifications</a></li>
+      <li><a href="#education"      onclick="closeMobile()">Education</a></li>
+      <li><a href="#contact"        onclick="closeMobile()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════════════
+       HERO
+  ════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+
+      <!-- Photo -->
+      <div class="hero-photo-side">
+        <div class="photo-frame">
+          <img
+            src="photo.jpeg"
+            alt="Aniket Sharma"
+            onerror="this.style.display='none';document.getElementById('photoFb').style.display='flex'"
+          />
+          <div class="photo-fb" id="photoFb">
+            <span class="fb-init">AS</span>
+            <span class="fb-note">Place your photo here<br/><code>your-photo.jpg</code></span>
+          </div>
+        </div>
+        <div class="photo-caption">
+          <span class="avail-dot"></span> Available for opportunities
+        </div>
+      </div>
+
+      <!-- Intro text -->
+      <div class="hero-text-side">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-name">Aniket<br/><em>Sharma</em></h1>
+        <div class="hero-role">
+          <span id="typingText"></span><span class="cursor">|</span>
+        </div>
+        <p class="hero-bio">
+          A B.Tech Computer Science student at <strong>Lovely Professional University</strong>,
+          building intelligent systems that turn raw data into decisions that matter —
+          whether that's predicting travel costs or finding patterns in complex datasets.
+        </p>
+        <div class="hero-quote">
+          <i class="fas fa-quote-left q-icon"></i>
+          <span>Turning Data into Intelligent Solutions</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-main">See my work</a>
+          <a href="#contact"  class="btn-soft">Get in touch</a>
+          <a href="#" class="btn-resume" download>
+            <i class="fas fa-arrow-down"></i> Resume
+          </a>
+        </div>
+        <div class="hero-numbers">
+          <div class="hn-item">
+            <span class="hn-val" data-target="2">0</span>
+            <span class="hn-key">Projects</span>
+          </div>
+          <div class="hn-sep"></div>
+          <div class="hn-item">
+            <span class="hn-val" data-target="3">0</span>
+            <span class="hn-key">Certifications</span>
+          </div>
+          <div class="hn-sep"></div>
+          <div class="hn-item">
+            <span class="hn-val" data-target="4">0</span>
+            <span class="hn-key">Languages</span>
+          </div>
+          <div class="hn-sep"></div>
+          <div class="hn-item">
+            <span class="hn-val" data-target="2">0</span>
+            <span class="hn-key">Awards</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-track"><div class="scroll-thumb"></div></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       ABOUT
+  ════════════════════════════ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="s-eyebrow">About me</div>
+      <h2 class="s-title">Who I am &amp; <em>what drives me</em></h2>
+      <div class="about-layout">
+        <div class="about-body reveal">
+          <p>
+            I'm a Computer Science student who believes the most interesting problems sit at
+            the intersection of <strong>technology, data, and real-world impact</strong>.
+            My work spans from competitive programming and data structures to building
+            full-stack applications with intelligent backends.
+          </p>
+          <p>
+            Beyond code, I spend time understanding <strong>how information flows through
+            systems</strong> — from machine learning pipelines to the way markets respond
+            to data. This broader curiosity shapes how I design solutions:
+            not just functional, but thoughtfully efficient.
+          </p>
+          <p>
+            I thrive in environments where I can learn fast, contribute meaningfully,
+            and build things that people actually use.
+          </p>
+          <div class="about-pills">
+            <span class="pill">🧠 AI &amp; Machine Learning</span>
+            <span class="pill">📊 Data Science</span>
+            <span class="pill">⚡ Problem Solving</span>
+            <span class="pill">🔍 Analytical Thinking</span>
+            <span class="pill">🌐 Full Stack Dev</span>
+          </div>
+        </div>
+        <div class="about-cards reveal">
+          <div class="about-card">
+            <div class="ac-icon">🏆</div>
+            <div class="ac-text">
+              <div class="ac-title">District Chess — Rank 5</div>
+              <div class="ac-sub">Strategic depth &amp; long-term thinking</div>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="ac-icon">🏸</div>
+            <div class="ac-text">
+              <div class="ac-title">State Badminton — Rank 4</div>
+              <div class="ac-sub">Discipline, agility &amp; focus under pressure</div>
+            </div>
+          </div>
+          <div class="about-card about-card-highlight">
+            <div class="ac-icon">🎓</div>
+            <div class="ac-text">
+              <div class="ac-title">B.Tech CSE @ LPU</div>
+              <div class="ac-sub">2023 – Present &nbsp;·&nbsp; Batch of 2027</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       SKILLS
+  ════════════════════════════ -->
+  <section class="section section-tinted" id="skills">
+    <div class="container">
+      <div class="s-eyebrow">Skills</div>
+      <h2 class="s-title">Things I work <em>well with</em></h2>
+      <div class="skills-layout">
+
+        <div class="skill-block reveal">
+          <div class="sb-label"><i class="fas fa-code"></i> Programming</div>
+          <div class="skill-rows">
+            <div class="sr"><span>C++</span><div class="sr-track"><div class="sr-fill" data-w="90"></div></div><span class="sr-pct">90%</span></div>
+            <div class="sr"><span>JavaScript</span><div class="sr-track"><div class="sr-fill" data-w="75"></div></div><span class="sr-pct">75%</span></div>
+            <div class="sr"><span>C</span><div class="sr-track"><div class="sr-fill" data-w="80"></div></div><span class="sr-pct">80%</span></div>
+            <div class="sr"><span>PHP</span><div class="sr-track"><div class="sr-fill" data-w="60"></div></div><span class="sr-pct">60%</span></div>
+          </div>
+        </div>
+
+        <div class="skill-block reveal">
+          <div class="sb-label"><i class="fas fa-globe"></i> Web Development</div>
+          <div class="skill-rows">
+            <div class="sr"><span>HTML</span><div class="sr-track"><div class="sr-fill" data-w="92"></div></div><span class="sr-pct">92%</span></div>
+            <div class="sr"><span>CSS</span><div class="sr-track"><div class="sr-fill" data-w="85"></div></div><span class="sr-pct">85%</span></div>
+            <div class="sr"><span>Bootstrap</span><div class="sr-track"><div class="sr-fill" data-w="78"></div></div><span class="sr-pct">78%</span></div>
+            <div class="sr"><span>Python / Flask</span><div class="sr-track"><div class="sr-fill" data-w="70"></div></div><span class="sr-pct">70%</span></div>
+          </div>
+        </div>
+
+        <div class="skill-block reveal">
+          <div class="sb-label"><i class="fas fa-database"></i> Data &amp; Tools</div>
+          <div class="skill-rows">
+            <div class="sr"><span>MySQL</span><div class="sr-track"><div class="sr-fill" data-w="75"></div></div><span class="sr-pct">75%</span></div>
+            <div class="sr"><span>MongoDB</span><div class="sr-track"><div class="sr-fill" data-w="65"></div></div><span class="sr-pct">65%</span></div>
+            <div class="sr"><span>NumPy / Pandas</span><div class="sr-track"><div class="sr-fill" data-w="72"></div></div><span class="sr-pct">72%</span></div>
+            <div class="sr"><span>Power BI</span><div class="sr-track"><div class="sr-fill" data-w="75"></div></div><span class="sr-pct">75%</span></div>
+          </div>
+        </div>
+
+        <div class="skill-block skill-block-soft reveal">
+          <div class="sb-label"><i class="fas fa-user"></i> Soft Skills</div>
+          <div class="soft-grid">
+            <span class="soft-item">🎯 Problem Solving</span>
+            <span class="soft-item">🤝 Teamwork</span>
+            <span class="soft-item">🔄 Adaptability</span>
+            <span class="soft-item">💬 Communication</span>
+            <span class="soft-item">🧩 Critical Thinking</span>
+            <span class="soft-item">📐 Attention to Detail</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       PROJECTS
+  ════════════════════════════ -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="s-eyebrow">Projects</div>
+      <h2 class="s-title">Things I've <em>built</em></h2>
+      <div class="projects-wrap">
+
+        <article class="project-item reveal">
+          <div class="pi-left">
+            <div class="pi-number">01</div>
+            <div class="pi-line"></div>
+          </div>
+          <div class="pi-body">
+            <div class="pi-tag">AI · Machine Learning</div>
+            <h3 class="pi-title">Budgeteers</h3>
+            <p class="pi-subtitle">AI-Powered Travel Budget Calculator</p>
+            <p class="pi-desc">
+              Built a prediction system trained on 100,000+ rows of travel data —
+              the kind of structured, high-volume dataset analysis that reveals
+              patterns no human could spot manually. Integrated Google Maps API
+              for live location data and a Flask backend that delivers real-time budget
+              estimates. A practical demonstration of applied ML on real-world data.
+            </p>
+            <div class="pi-stack">
+              <code>HTML</code><code>CSS</code><code>JavaScript</code>
+              <code>Python</code><code>Flask</code><code>NumPy</code>
+              <code>Pandas</code><code>Google Maps API</code>
+            </div>
+            <div class="pi-actions">
+              <a href="#" class="pa-primary"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+              <a href="#" class="pa-ghost"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-item reveal">
+          <div class="pi-left">
+            <div class="pi-number">02</div>
+            <div class="pi-line"></div>
+          </div>
+          <div class="pi-body">
+            <div class="pi-tag">Full Stack · Algorithms</div>
+            <h3 class="pi-title">Smark</h3>
+            <p class="pi-subtitle">Smart Parking Finder &amp; Booking System</p>
+            <p class="pi-desc">
+              Designed a system that solves a real urban inefficiency — finding and booking
+              parking — by combining real-time location APIs with a linear regression model
+              that predicts space availability. Efficient resource allocation through
+              data-driven decisions, applied to everyday life.
+            </p>
+            <div class="pi-stack">
+              <code>HTML</code><code>CSS</code><code>JavaScript</code>
+              <code>Node.js</code><code>Google Maps API</code><code>Linear Regression</code>
+            </div>
+            <div class="pi-actions">
+              <a href="#" class="pa-primary"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+              <a href="#" class="pa-ghost"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       CERTIFICATIONS
+  ════════════════════════════ -->
+  <section class="section section-tinted" id="certifications">
+    <div class="container">
+      <div class="s-eyebrow">Certifications</div>
+      <h2 class="s-title">What I've <em>learned &amp; earned</em></h2>
+      <p class="s-sub">Add your certificate images to the folder — they'll appear here automatically.</p>
+
+      <div class="cert-grid">
+
+        <div class="cert-tile reveal">
+          <div class="cert-preview">
+            <img src="cert-ibm.jpg" alt="IBM Data Visualization Certificate"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-preview-fb" style="display:none">
+              <i class="fas fa-certificate"></i>
+              <span>IBM Certificate</span>
+              <code>cert-ibm.jpg</code>
+            </div>
+            <div class="cert-lens">
+              <a href="#"><i class="fas fa-expand"></i> View</a>
+            </div>
+          </div>
+          <div class="cert-meta">
+            <div class="cert-org ibm-org">IBM</div>
+            <div class="cert-detail">
+              <div class="cert-title-t">Data Visualization with Python</div>
+              <div class="cert-from">IBM · Coursera</div>
+            </div>
+            <i class="fas fa-check-circle cert-tick"></i>
+          </div>
+          <div class="cert-tags"><span>Python</span><span>Matplotlib</span><span>Seaborn</span></div>
+        </div>
+
+        <div class="cert-tile reveal">
+          <div class="cert-preview">
+            <img src="cert-fcc.jpg" alt="FreeCodeCamp Responsive Web Design"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-preview-fb" style="display:none">
+              <i class="fas fa-certificate"></i>
+              <span>FreeCodeCamp Certificate</span>
+              <code>cert-fcc.jpg</code>
+            </div>
+            <div class="cert-lens">
+              <a href="#"><i class="fas fa-expand"></i> View</a>
+            </div>
+          </div>
+          <div class="cert-meta">
+            <div class="cert-org fcc-org">fCC</div>
+            <div class="cert-detail">
+              <div class="cert-title-t">Responsive Web Design</div>
+              <div class="cert-from">FreeCodeCamp</div>
+            </div>
+            <i class="fas fa-check-circle cert-tick"></i>
+          </div>
+          <div class="cert-tags"><span>HTML</span><span>CSS</span><span>Flexbox</span></div>
+        </div>
+        <div class="cert-tile reveal">
+          <div class="cert-preview">
+            <img src="cert-fcc.jpg" alt="FreeCodeCamp Responsive Web Design"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-preview-fb" style="display:none">
+              <i class="fas fa-certificate"></i>
+              <span>FreeCodeCamp Certificate</span>
+              <code>cert-fcc.jpg</code>
+            </div>
+            <div class="cert-lens">
+              <a href="#"><i class="fas fa-expand"></i> View</a>
+            </div>
+          </div>
+          <div class="cert-meta">
+            <div class="cert-org fcc-org">fCC</div>
+            <div class="cert-detail">
+              <div class="cert-title-t">Responsive Web Design</div>
+              <div class="cert-from">FreeCodeCamp</div>
+            </div>
+            <i class="fas fa-check-circle cert-tick"></i>
+          </div>
+          <div class="cert-tags"><span>HTML</span><span>CSS</span><span>Flexbox</span></div>
+        </div>
+
+        <div class="cert-tile reveal">
+          <div class="cert-preview">
+            <img src="cert-rtp.jpg" alt="RisingTechPro Live Web Development"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-preview-fb" style="display:none">
+              <i class="fas fa-certificate"></i>
+              <span>RisingTechPro Certificate</span>
+              <code>cert-rtp.jpg</code>
+            </div>
+            <div class="cert-lens">
+              <a href="#"><i class="fas fa-expand"></i> View</a>
+            </div>
+          </div>
+          <div class="cert-meta">
+            <div class="cert-org rtp-org">RTP</div>
+            <div class="cert-detail">
+              <div class="cert-title-t">Live Web Development</div>
+              <div class="cert-from">RisingTechPro</div>
+            </div>
+            <i class="fas fa-check-circle cert-tick"></i>
+          </div>
+          <div class="cert-tags"><span>Web Dev</span><span>JavaScript</span><span>Projects</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       EDUCATION
+  ════════════════════════════ -->
+  <section class="section" id="education">
+    <div class="container">
+      <div class="s-eyebrow">Education</div>
+      <h2 class="s-title">My academic <em>journey</em></h2>
+      <div class="edu-list">
+        <div class="edu-row reveal">
+          <div class="er-year">2023 – Present</div>
+          <div class="er-dot"></div>
+          <div class="er-body">
+            <div class="er-degree">B.Tech — Computer Science &amp; Engineering</div>
+            <div class="er-school">Lovely Professional University</div>
+            <div class="er-pills"><span>AI / ML</span><span>DSA</span><span>Web Dev</span><span>Data Science</span></div>
+          </div>
+        </div>
+        <div class="edu-row reveal">
+          <div class="er-year">Class XII</div>
+          <div class="er-dot"></div>
+          <div class="er-body">
+            <div class="er-degree">Senior Secondary</div>
+            <div class="er-school">Score — 75%</div>
+          </div>
+        </div>
+        <div class="edu-row reveal">
+          <div class="er-year">Class X</div>
+          <div class="er-dot"></div>
+          <div class="er-body">
+            <div class="er-degree">Secondary School</div>
+            <div class="er-school">Score — 63%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       CONTACT
+  ════════════════════════════ -->
+  <section class="section section-tinted" id="contact">
+    <div class="container">
+      <div class="s-eyebrow">Contact</div>
+      <h2 class="s-title">Let's <em>talk</em></h2>
+      <p class="contact-note">
+        I'm open to internships, research collaborations, and project opportunities —
+        especially where data, intelligence, and real-world impact converge.
+      </p>
+      <div class="contact-layout">
+        <div class="contact-links reveal">
+          <a href="mailto:aniketvsharma143@gmail.com" class="cl-item">
+            <div class="cl-icon"><i class="fas fa-envelope"></i></div>
+            <div class="cl-info">
+              <div class="cl-label">Email</div>
+              <div class="cl-val">aniketvsharma143@gmail.com</div>
+            </div>
+            <i class="fas fa-arrow-right cl-arrow"></i>
+          </a>
+          <a href="tel:+919882166059" class="cl-item">
+            <div class="cl-icon"><i class="fas fa-phone"></i></div>
+            <div class="cl-info">
+              <div class="cl-label">Phone</div>
+              <div class="cl-val">+91-9882166059</div>
+            </div>
+            <i class="fas fa-arrow-right cl-arrow"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="cl-item">
+            <div class="cl-icon cl-li"><i class="fab fa-linkedin"></i></div>
+            <div class="cl-info">
+              <div class="cl-label">LinkedIn</div>
+              <div class="cl-val">Connect with me</div>
+            </div>
+            <i class="fas fa-arrow-right cl-arrow"></i>
+          </a>
+          <a href="https://github.com" target="_blank" class="cl-item">
+            <div class="cl-icon cl-gh"><i class="fab fa-github"></i></div>
+            <div class="cl-info">
+              <div class="cl-label">GitHub</div>
+              <div class="cl-val">View my repositories</div>
+            </div>
+            <i class="fas fa-arrow-right cl-arrow"></i>
+          </a>
+        </div>
+        <div class="contact-card reveal">
+          <div class="cc-inner">
+            <div class="cc-wave">👋</div>
+            <h3>Open to opportunities</h3>
+            <p>Whether it's a startup building something meaningful, a research lab pushing AI forward, or a team that values both precision and creativity — I'd love to hear from you.</p>
+            <a href="mailto:aniketvsharma143@gmail.com" class="btn-main cc-btn">Start a conversation</a>
+            <a href="#" class="btn-soft cc-btn" download>Download Resume</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════
+       HOBBIES
+  ════════════════════════════ -->
+  <section class="section" id="hobbies">
+    <div class="container">
+      <div class="s-eyebrow">Outside work</div>
+      <h2 class="s-title">How I spend my <em>time</em></h2>
+      <p class="s-sub">The patterns I notice off-screen feed directly into how I think on it.</p>
+      <div class="hobbies-layout">
+
+        <div class="hob-card reveal">
+          <div class="hob-top">
+            <span class="hob-emoji">♟️</span>
+            <span class="hob-rank">District · Rank 5</span>
+          </div>
+          <h4 class="hob-name">Chess</h4>
+          <p class="hob-text">Chess taught me to think several moves ahead and evaluate risk under uncertainty — a mindset I carry into every algorithm I design and every dataset I analyze.</p>
+        </div>
+
+        <div class="hob-card reveal">
+          <div class="hob-top">
+            <span class="hob-emoji">🏸</span>
+            <span class="hob-rank">State · Rank 4</span>
+          </div>
+          <h4 class="hob-name">Badminton</h4>
+          <p class="hob-text">Fast reflexes, quick pivots, and staying composed under pressure. Competing at state level gave me a healthy obsession with improvement and performance.</p>
+        </div>
+
+        <div class="hob-card reveal">
+          <div class="hob-top">
+            <span class="hob-emoji">💻</span>
+            <span class="hob-rank">Ongoing</span>
+          </div>
+          <h4 class="hob-name">Building &amp; Exploring</h4>
+          <p class="hob-text">Weekends often involve experimenting with new APIs, reading about ML papers, or building small tools. Curiosity-driven learning keeps my skills fresh and unconventional.</p>
+        </div>
+
+        <div class="hob-card reveal hob-trips-card" onclick="window.open('weekends.html','_blank')" style="cursor:pointer;">
+          <div class="hob-top">
+            <span class="hob-emoji">🗺️</span>
+            <span class="hob-rank trips-rank">Jun 2025 – Mar 2026</span>
+          </div>
+          <h4 class="hob-name">My Weekends</h4>
+          <p class="hob-text">Six trips, countless memories. From hills to highways — see where my weekends took me over the past year.</p>
+          <div class="trips-cta">
+            Explore my trips <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="f-logo"><span class="logo-bracket">&lt;</span>Aniket<span class="logo-dot">/</span><span class="logo-bracket">&gt;</span></div>
+      <p class="f-line">Built with care by <strong>Aniket Sharma</strong></p>
+      <p class="f-sub">B.Tech CSE &nbsp;·&nbsp; Lovely Professional University &nbsp;·&nbsp; 2024</p>
+      <div class="f-socials">
+        <a href="mailto:aniketvsharma143@gmail.com" aria-label="email"><i class="fas fa-envelope"></i></a>
+        <a href="https://linkedin.com" target="_blank" aria-label="linkedin"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com"   target="_blank" aria-label="github"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
