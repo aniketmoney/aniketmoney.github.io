@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aniket's Weekends — Travel Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* ===== ROOT ===== */
+    :root {
+      --bg:         #faf8f5;
+      --bg-tint:    #f3f0eb;
+      --bg-card:    #ffffff;
+      --ink:        #1a1814;
+      --ink-2:      #4a4540;
+      --ink-3:      #8a827a;
+      --ink-4:      #c4bdb6;
+      --accent:     #2d6a4f;
+      --accent-lt:  #52b788;
+      --accent-sand:#c9a96e;
+      --border:     rgba(26,24,20,0.08);
+      --border-med: rgba(26,24,20,0.14);
+      --shadow-sm:  0 2px 12px rgba(26,24,20,0.06);
+      --shadow-md:  0 8px 32px rgba(26,24,20,0.10);
+      --shadow-lg:  0 20px 60px rgba(26,24,20,0.13);
+      --radius:     16px;
+      --tr:         0.28s cubic-bezier(0.4,0,0.2,1);
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --sans:       'Inter', system-ui, sans-serif;
+      --mono:       'JetBrains Mono', monospace;
+    }
+    body.dark-mode {
+      --bg:#0f1117; --bg-tint:#161b27; --bg-card:#1a2030;
+      --ink:#e8eaf0; --ink-2:#a8b0c8; --ink-3:#5a6480; --ink-4:#2e3550;
+      --accent:#4ade9a; --accent-lt:#22c55e; --accent-sand:#f0b942;
+      --border:rgba(255,255,255,0.07); --border-med:rgba(255,255,255,0.13);
+      --shadow-sm:0 2px 12px rgba(0,0,0,0.35); --shadow-md:0 8px 32px rgba(0,0,0,0.5); --shadow-lg:0 20px 60px rgba(0,0,0,0.65);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg);color:var(--ink-2);line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background 0.3s ease, color 0.3s ease}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;border-radius:12px}
+
+    /* ===== BLOBS ===== */
+    .blob{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;animation:blobDrift 18s ease-in-out infinite}
+    .blob1{width:500px;height:500px;background:radial-gradient(circle,rgba(82,183,136,0.07),transparent 70%);top:-80px;right:-80px}
+    .blob2{width:400px;height:400px;background:radial-gradient(circle,rgba(201,169,110,0.06),transparent 70%);bottom:-80px;left:-80px;animation-delay:-7s}
+    @keyframes blobDrift{0%,100%{transform:translate(0,0)}33%{transform:translate(20px,-20px)}66%{transform:translate(-16px,16px)}}
+
+    /* ===== HEADER ===== */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      transition: var(--tr);
+    }
+    .site-header.scrolled {
+      background: rgba(250,248,245,0.93);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    body.dark-mode .site-header.scrolled { background: rgba(15,17,23,0.92); }
+    .h-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; color: var(--ink-3); font-weight: 500;
+      transition: var(--tr);
+    }
+    .h-back:hover { color: var(--accent); }
+    .h-logo {
+      font-family: var(--mono); font-size: 1rem;
+      color: var(--ink); font-weight: 500;
+    }
+    .h-logo .ld { color: var(--accent); }
+    .h-right { display: flex; align-items: center; gap: 1rem; }
+
+    /* Dark toggle (same as main) */
+    .theme-toggle{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center}
+    .toggle-track{position:relative;width:54px;height:28px;background:var(--border-med);border:1px solid var(--border-med);border-radius:50px;display:flex;align-items:center;transition:background .3s ease;overflow:hidden}
+    body.dark-mode .toggle-track{background:rgba(74,222,154,.15);border-color:rgba(74,222,154,.3)}
+    .toggle-icon{position:absolute;top:50%;transform:translateY(-50%);font-size:.65rem;transition:opacity .3s ease;z-index:1}
+    .toggle-icon.sun{left:7px;color:var(--accent-sand)}
+    .toggle-icon.moon{right:7px;color:#818cf8}
+    body.light-mode .toggle-icon.moon{opacity:.3}
+    body.dark-mode .toggle-icon.sun{opacity:.3}
+    .toggle-thumb{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--bg-card);border:1px solid var(--border-med);box-shadow:0 2px 6px rgba(0,0,0,.15);transition:transform .3s cubic-bezier(.4,0,.2,1),background .3s ease;z-index:2}
+    body.dark-mode .toggle-thumb{transform:translateX(26px);background:var(--accent);border-color:var(--accent)}
+
+    /* ===== HERO BANNER ===== */
+    .trips-hero {
+      min-height: 60vh; display: flex; align-items: flex-end;
+      padding: 8rem 3rem 4rem;
+      position: relative; z-index: 1;
+      border-bottom: 1px solid var(--border);
+    }
+    .th-inner { max-width: 700px; }
+    .th-eyebrow {
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.7rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .th-eyebrow::before { content: '// '; opacity: 0.5; }
+    .trips-hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 600; line-height: 1.1;
+      color: var(--ink); margin-bottom: 1rem;
+    }
+    .trips-hero h1 em { color: var(--accent); font-style: italic; }
+    .trips-hero p {
+      font-size: 1rem; color: var(--ink-3);
+      max-width: 520px; line-height: 1.8;
+    }
+    .th-stats {
+      display: flex; gap: 2.5rem; margin-top: 2rem;
+    }
+    .ths-item { text-align: center; }
+    .ths-val {
+      font-family: var(--serif); font-size: 2rem; font-weight: 600;
+      color: var(--ink); display: block; line-height: 1;
+    }
+    .ths-lbl { font-size: 0.72rem; color: var(--ink-3); margin-top: 0.2rem; }
+
+    /* ===== STICKY TIMELINE NAV ===== */
+    .timeline-nav {
+      position: sticky; top: 64px; z-index: 90;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 3rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .timeline-nav::-webkit-scrollbar { display: none; }
+    body.dark-mode .timeline-nav { background: var(--bg); }
+    .tn-inner {
+      display: flex; gap: 0; align-items: stretch;
+      white-space: nowrap; min-width: max-content;
+    }
+    .tn-item {
+      display: flex; align-items: center; gap: 0;
+      cursor: pointer; padding: 1rem 0; margin-right: 2.5rem;
+      position: relative; transition: var(--tr);
+      flex-shrink: 0;
+    }
+    .tn-item::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--accent); transform: scaleX(0);
+      transform-origin: left; transition: transform var(--tr);
+    }
+    .tn-item:hover::after, .tn-item.active::after { transform: scaleX(1); }
+    .tn-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid var(--border-med);
+      background: var(--bg-card); margin-right: 0.6rem;
+      transition: var(--tr); flex-shrink: 0;
+    }
+    .tn-item:hover .tn-dot, .tn-item.active .tn-dot {
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(45,106,79,0.15);
+    }
+    body.dark-mode .tn-item.active .tn-dot { box-shadow: 0 0 0 4px rgba(74,222,154,0.15); }
+    .tn-text { line-height: 1.2; }
+    .tn-month { font-size: 0.68rem; color: var(--ink-3); font-family: var(--mono); }
+    .tn-place { font-size: 0.85rem; font-weight: 600; color: var(--ink); transition: var(--tr); }
+    .tn-item:hover .tn-place, .tn-item.active .tn-place { color: var(--accent); }
+
+    /* ===== TRIP SECTIONS ===== */
+    .trips-container {
+      max-width: 1060px; margin: 0 auto;
+      padding: 0 3rem 5rem;
+      position: relative; z-index: 1;
+    }
+    .trip-section {
+      padding-top: 5rem; padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .trip-section:last-child { border-bottom: none; }
+
+    /* Trip header */
+    .trip-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 2rem;
+      margin-bottom: 2.5rem; flex-wrap: wrap;
+    }
+    .trip-left { flex: 1; }
+    .trip-month {
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .trip-month::before { content: '→ '; }
+    .trip-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 600; color: var(--ink); line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
+    .trip-subtitle { font-size: 0.9rem; color: var(--ink-3); font-style: italic; }
+    .trip-desc {
+      font-size: 0.95rem; color: var(--ink-2);
+      line-height: 1.85; max-width: 600px; margin-top: 1rem;
+    }
+    .trip-meta {
+      display: flex; flex-direction: column; gap: 0.6rem;
+      align-items: flex-end;
+    }
+    .tm-chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.3rem 0.85rem; border-radius: 50px;
+      border: 1px solid var(--border-med);
+      font-size: 0.78rem; color: var(--ink-3);
+      background: var(--bg-card);
+    }
+    .tm-chip i { color: var(--accent); font-size: 0.7rem; }
+
+    /* Media Grid */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .media-grid.grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .media-grid.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .media-item {
+      position: relative; border-radius: 12px; overflow: hidden;
+      background: var(--bg-tint);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: var(--tr);
+    }
+    .media-item:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
+    .media-item.tall { grid-row: span 2; }
+    .media-item.wide { grid-column: span 2; }
+
+    /* Image placeholder */
+    .img-slot {
+      width: 100%; height: 220px;
+      background: linear-gradient(145deg, var(--bg-tint), var(--bg));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem; text-align: center; padding: 1rem;
+    }
+    .media-item.tall .img-slot { height: 100%; min-height: 460px; }
+    .media-item.wide .img-slot { height: 220px; }
+    .img-slot i { font-size: 1.8rem; color: var(--accent); opacity: 0.4; }
+    .img-slot-label { font-size: 0.75rem; color: var(--ink-3); line-height: 1.4; }
+    .img-slot code { font-family: var(--mono); font-size: 0.68rem; color: var(--accent-sand); }
+
+    /* Real images */
+    .media-item img {
+      width: 100%; height: 220px; object-fit: cover; border-radius: 0;
+      transition: transform 0.4s ease;
+    }
+    .media-item.tall img { height: 460px; }
+    .media-item.wide img { height: 220px; }
+    .media-item:hover img { transform: scale(1.06); }
+
+    /* Video slot */
+    .video-slot {
+      width: 100%; height: 220px;
+      background: var(--ink);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.6rem;
+    }
+    .vs-play {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem; transition: var(--tr);
+    }
+    .media-item:hover .vs-play { background: var(--accent); border-color: var(--accent); }
+    .vs-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+    .vs-name  { font-size: 0.82rem; color: rgba(255,255,255,0.75); font-weight: 500; }
+
+    /* Real video embed */
+    .media-item video {
+      width: 100%; height: 220px; object-fit: cover; border-radius: 0;
+    }
+
+    /* Caption */
+    .media-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.6rem 0.8rem;
+      background: linear-gradient(transparent, rgba(26,24,20,0.65));
+      font-size: 0.72rem; color: rgba(255,255,255,0.85);
+      border-radius: 0 0 12px 12px;
+      opacity: 0; transition: var(--tr);
+    }
+    .media-item:hover .media-caption { opacity: 1; }
+
+    /* How to add content note */
+    .add-note {
+      margin-top: 1rem; padding: 0.85rem 1.1rem;
+      background: rgba(201,169,110,0.07);
+      border: 1px solid rgba(201,169,110,0.18);
+      border-radius: 10px;
+      font-size: 0.78rem; color: var(--ink-3);
+      display: flex; align-items: flex-start; gap: 0.5rem;
+    }
+    .add-note i { color: var(--accent-sand); margin-top: 0.1rem; flex-shrink: 0; }
+    .add-note code { font-family: var(--mono); font-size: 0.72rem; color: var(--accent-sand); }
+
+    /* ===== BACK TO TOP ===== */
+    .back-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 99;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-md);
+      opacity: 0; pointer-events: none;
+      transition: var(--tr);
+    }
+    .back-top.show { opacity: 1; pointer-events: all; }
+    .back-top:hover { transform: translateY(-3px); background: #235c42; }
+
+    /* Scroll reveal */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* Responsive */
+    @media(max-width:768px){
+      .site-header{padding:.8rem 1.5rem}
+      .trips-hero{padding:6rem 1.5rem 3rem}
+      .timeline-nav{padding:0 1.5rem}
+      .trips-container{padding:0 1.5rem 4rem}
+      .media-grid{grid-template-columns:1fr 1fr !important}
+      .media-item.tall{grid-row:span 1}
+      .media-item.tall img,.media-item.tall .img-slot{height:220px !important;min-height:unset !important}
+      .trip-meta{align-items:flex-start}
+      .th-stats{gap:1.5rem}
+    }
+    @media(max-width:480px){
+      .media-grid{grid-template-columns:1fr !important}
+      .media-item.wide{grid-column:span 1}
+    }
+  </style>
+</head>
+<body class="light-mode">
+
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <a href="index.html" class="h-back">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
+    <div class="h-logo">&lt;Aniket<span class="ld">/</span>&gt;</div>
+    <div class="h-right">
+      <button class="theme-toggle" id="themeToggle">
+        <span class="toggle-track">
+          <span class="toggle-icon sun"><i class="fas fa-sun"></i></span>
+          <span class="toggle-icon moon"><i class="fas fa-moon"></i></span>
+          <span class="toggle-thumb"></span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="trips-hero">
+    <div class="th-inner">
+      <div class="th-eyebrow">travel journal</div>
+      <h1>My <em>Weekends</em></h1>
+      <p>
+        Nine months, six destinations, countless moments captured between study sessions
+        and coding sprints. This is where I go when I close the laptop.
+      </p>
+      <div class="th-stats">
+        <div class="ths-item"><span class="ths-val">7</span><span class="ths-lbl">Trips</span></div>
+        <div class="ths-item"><span class="ths-val">9</span><span class="ths-lbl">Months</span></div>
+        <div class="ths-item"><span class="ths-val">∞</span><span class="ths-lbl">Memories</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STICKY TIMELINE NAV -->
+  <nav class="timeline-nav" id="timelineNav">
+    <div class="tn-inner">
+      <div class="tn-item active" onclick="scrollToTrip('trip1')">
+        <div class="tn-dot"></div>
+        <div class="tn-text">
+          <div class="tn-month">Jun 2025</div>
+          <div class="tn-place">Shimla</div>
+        </div>
+      </div>
+      <div class="tn-item" onclick="scrollToTrip('trip2')">
+        <div class="tn-dot"></div>
+        <div class="tn-text">
+          <div class="tn-month">Aug 2025</div>
+          <div class="tn-place">Hatu Peak</div>
+        </div>
+      </div>
+      <div class="tn-item" onclick="scrollToTrip('trip3')">
+        <div class="tn-dot"></div>
+        <div class="tn-text">
+          <div class="tn-month">Sep 2025</div>
+          <div class="tn-place">Mandi</div>
+        </div>
+      </div>
+      <div class="tn-item" onclick="scrollToTrip('trip4')">
+        <div class="tn-dot"></div>
+        <div class="tn-text">
+          <div class="tn-month">Sep 2025</div>
+          <div class="tn-place">Parashar Lake</div>
+        </div>
+      </div>
+      <div class="tn-item" onclick="scrollToTrip('trip5')">
+        <div class="tn-dot"></div>
+        <div class="tn-text">
+          <div class="tn-month">Nov 2025</div>
+          <div class="tn-place">Kareri Lake</div>
+        </div>
+      </div>
+      <div class="tn-item" onclick="scrollToTrip('trip6')">
+        <div class="tn-dot"></div>
+        <div class="tn-text">
+          <div class="tn-month">Jan 2026</div>
+          <div class="tn-place">Kufri</div>
+        </div>
+      </div>
+       <div class="tn-item" onclick="scrollToTrip('trip4')">
+        <div class="tn-dot"></div>
+        <div class="tn-text">
+          <div class="tn-month">Mar 2025</div>
+          <div class="tn-place">Manali</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TRIPS -->
+  <div class="trips-container">
+
+    <!-- ── TRIP 1 ── -->
+    <section class="trip-section reveal" id="trip1">
+      <div class="trip-header">
+        <div class="trip-left">
+          <div class="trip-month">June 2025</div>
+          <h2 class="trip-title">Shimla</h2>
+          <div class="trip-subtitle">Shimla · Himachal Pradesh, India</div>
+          <p class="trip-desc">
+            Write your trip description here. Tell the story of what made this place special,
+            what you explored, and what you brought back with you.
+          </p>
+        </div>
+        <div class="trip-meta">
+          <span class="tm-chip"><i class="fas fa-calendar-alt"></i> June 2025</span>
+          <span class="tm-chip"><i class="fas fa-map-marker-alt"></i> State, India</span>
+          <span class="tm-chip"><i class="fas fa-clock"></i> 2 days</span>
+        </div>
+      </div>
+      <!-- Media grid — replace img src and video src with your files -->
+      <div class="media-grid">
+        <div class="media-item tall">
+          <img src="Shimla4.jpeg" alt="Trip 1 Main Photo"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none">
+            <i class="fas fa-image"></i>
+            <div class="img-slot-label">Your portrait photo here<br/><code>trip1-photo1.jpg</code></div>
+          </div>
+          <div class="media-caption">Jhakhu Temple</div>
+        </div>
+        <div class="media-item">
+          <img src="Shimla1.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip1-photo2.jpg</code></div></div>
+          <div class="media-caption">Capturing night view of Mall road Shimla was must.</div>
+        </div>
+        <div class="media-item">
+          <img src="Shimla2.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip1-photo3.jpg</code></div></div>
+          <div class="media-caption">The energy never fades if you are doing your favourite thing</div>
+        </div>
+        <div class="media-item">
+          <!-- Video slot — replace src with your video file -->
+          <video src="Shimlavideo.mp4" controls poster="trip1-thumb.jpg"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="video-slot" style="display:none">
+            <div class="vs-play"><i class="fas fa-play"></i></div>
+            <div class="vs-name">Trip Video</div>
+            <div class="vs-label">Add <code>trip1-video.mp4</code></div>
+          </div>
+          <div class="media-caption">When weather seems like this, its ok to roam</div>
+        </div>
+      </div>
+   
+    </section>
+
+    <!-- ── TRIP 2 ── -->
+    <section class="trip-section reveal" id="trip2">
+      <div class="trip-header">
+        <div class="trip-left">
+          <div class="trip-month">August 2025</div>
+          <h2 class="trip-title">Hatu Peak</h2>
+          <div class="trip-subtitle">Narkanda · Himachal Pardesh, India</div>
+          <p class="trip-desc">Write your trip description here. What was the vibe? What did you discover?</p>
+        </div>
+        <div class="trip-meta">
+          <span class="tm-chip"><i class="fas fa-calendar-alt"></i> August 2025</span>
+          <span class="tm-chip"><i class="fas fa-map-marker-alt"></i> State, India</span>
+          <span class="tm-chip"><i class="fas fa-clock"></i> 2 days</span>
+        </div>
+      </div>
+      <div class="media-grid grid-4">
+        <div class="media-item wide">
+          <img src="Hatu2.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip2-photo1.jpg</code></div></div>
+          <div class="media-caption">Wide hero shot</div>
+        </div>
+        <div class="media-item">
+          <img src="Hatu1.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip2-photo2.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="Hatu3.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip2-photo3.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <video src="Hatuvideo.mp4" controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="video-slot" style="display:none"><div class="vs-play"><i class="fas fa-play"></i></div><div class="vs-label">Add <code>trip2-video.mp4</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="Hatu4.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip2-photo4.jpg</code></div></div>
+        </div>
+      </div>
+    </section>
+     <!-- ── TRIP 2 ── -->
+    <section class="trip-section reveal" id="trip2">
+      <div class="trip-header">
+        <div class="trip-left">
+          <div class="trip-month">August 2025</div>
+          <h2 class="trip-title">Mandi</h2>
+          <div class="trip-subtitle">Mandi · Himachal Pradesh, India</div>
+          <p class="trip-desc">Write your trip description here. What was the vibe? What did you discover?</p>
+        </div>
+        <div class="trip-meta">
+          <span class="tm-chip"><i class="fas fa-calendar-alt"></i> August 2025</span>
+          <span class="tm-chip"><i class="fas fa-map-marker-alt"></i> Himachal Pradesh, India</span>
+          <span class="tm-chip"><i class="fas fa-clock"></i> 2 days</span>
+        </div>
+      </div>
+      <div class="media-grid grid-4">
+        <div class="media-item wide">
+          <img src="Mandi2.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip2-photo1.jpg</code></div></div>
+          <div class="media-caption">Wide hero shot</div>
+        </div>
+        <div class="media-item">
+          <img src="Mandi1.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip2-photo2.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="Mandi3.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip2-photo3.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <video src="mandivideo.mp4" controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="video-slot" style="display:none"><div class="vs-play"><i class="fas fa-play"></i></div><div class="vs-label">Add <code>trip2-video.mp4</code></div></div>
+        </div>
+       
+      </div>
+    </section>
+
+
+    <!-- ── TRIP 3 ── -->
+    <section class="trip-section reveal" id="trip3">
+      <div class="trip-header">
+        <div class="trip-left">
+          <div class="trip-month">September 2025</div>
+          <h2 class="trip-title">Parashar Lake</h2>
+          <div class="trip-subtitle">Mandi · Himachal Pradesh, India</div>
+          <p class="trip-desc">Describe this trip — what made it stand out from the rest?</p>
+        </div>
+        <div class="trip-meta">
+          <span class="tm-chip"><i class="fas fa-calendar-alt"></i> September 2025</span>
+          <span class="tm-chip"><i class="fas fa-map-marker-alt"></i> Himachal Pradesh, India</span>
+          <span class="tm-chip"><i class="fas fa-clock"></i> 3 days</span>
+        </div>
+      </div>
+      <div class="media-grid">
+        <div class="media-item">
+          <img src="p1.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip3-photo1.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="p2.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip3-photo2.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <video src="pv.mp4" controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="video-slot" style="display:none"><div class="vs-play"><i class="fas fa-play"></i></div><div class="vs-label">Add <code>trip3-video.mp4</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="p3.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip3-photo3.jpg</code></div></div>
+        </div>
+        <div class="media-item wide">
+          <img src="p4.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip3-photo4.jpg</code></div></div>
+          <div class="media-caption">Panoramic shot</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRIP 4 ── -->
+    <section class="trip-section reveal" id="trip4">
+      <div class="trip-header">
+        <div class="trip-left">
+          <div class="trip-month">November 2025</div>
+          <h2 class="trip-title">Kareri Lake</h2>
+          <div class="trip-subtitle">Gaggal · Himachal Pradesh, India</div>
+          <p class="trip-desc">Your November adventure. What pulled you there?</p>
+        </div>
+        <div class="trip-meta">
+          <span class="tm-chip"><i class="fas fa-calendar-alt"></i> November 2025</span>
+          <span class="tm-chip"><i class="fas fa-map-marker-alt"></i> Himachal Pradesh, India</span>
+          <span class="tm-chip"><i class="fas fa-clock"></i> 2 days</span>
+        </div>
+      </div>
+      <div class="media-grid">
+        <div class="media-item tall">
+          <img src="k1.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none;min-height:460px"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip4-photo1.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="k2.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip4-photo2.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="k3.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip4-photo3.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <video src="kv.mp4" controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="video-slot" style="display:none"><div class="vs-play"><i class="fas fa-play"></i></div><div class="vs-label">Add <code>trip4-video.mp4</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="k4.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip4-photo4.jpg</code></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRIP 5 ── -->
+    <section class="trip-section reveal" id="trip5">
+      <div class="trip-header">
+        <div class="trip-left">
+          <div class="trip-month">January 2026</div>
+          <h2 class="trip-title">Kufri</h2>
+          <div class="trip-subtitle">Kufri · Himachal Pradesh, India</div>
+          <p class="trip-desc">New year, new destination. What kicked off 2026 for you?</p>
+        </div>
+        <div class="trip-meta">
+          <span class="tm-chip"><i class="fas fa-calendar-alt"></i> January 2026</span>
+          <span class="tm-chip"><i class="fas fa-map-marker-alt"></i> Himachal Pradesh, India</span>
+          <span class="tm-chip"><i class="fas fa-clock"></i> 2 days</span>
+        </div>
+      </div>
+      <div class="media-grid grid-2">
+        <div class="media-item">
+          <img src="ku1.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip5-photo1.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="ku2.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip5-photo2.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <video src="kuv.mp4" controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="video-slot" style="display:none"><div class="vs-play"><i class="fas fa-play"></i></div><div class="vs-label">Add <code>trip5-video.mp4</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="ku4.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip5-photo3.jpg</code></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRIP 6 ── -->
+    <section class="trip-section reveal" id="trip6">
+      <div class="trip-header">
+        <div class="trip-left">
+          <div class="trip-month">March 2026</div>
+          <h2 class="trip-title">Solang Valley</h2>
+          <div class="trip-subtitle">Manali · Himachal Pradesh, India</div>
+          <p class="trip-desc">The most recent trip. How did it feel to close this chapter of weekend adventures?</p>
+        </div>
+        <div class="trip-meta">
+          <span class="tm-chip"><i class="fas fa-calendar-alt"></i> March 2026</span>
+          <span class="tm-chip"><i class="fas fa-map-marker-alt"></i> Himachal Pradesh, India</span>
+          <span class="tm-chip"><i class="fas fa-clock"></i> 2 days</span>
+        </div>
+      </div>
+      <div class="media-grid">
+        <div class="media-item wide">
+          <img src="m1.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip6-photo1.jpg</code></div></div>
+          <div class="media-caption">The final destination</div>
+        </div>
+        <div class="media-item">
+          <img src="m2.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip6-photo2.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <video src="mv.mp4" controls onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"></video>
+          <div class="video-slot" style="display:none"><div class="vs-play"><i class="fas fa-play"></i></div><div class="vs-label">Add <code>trip6-video.mp4</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="m3.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip6-photo3.jpg</code></div></div>
+        </div>
+        <div class="media-item">
+          <img src="m44.jpeg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="img-slot" style="display:none"><i class="fas fa-image"></i><div class="img-slot-label"><code>trip6-photo4.jpg</code></div></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /trips-container -->
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Sync theme with main portfolio
+    const body = document.body;
+    const saved = localStorage.getItem('theme') || 'light';
+    body.classList.add(saved + '-mode');
+
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      const isDark = body.classList.contains('dark-mode');
+      body.classList.toggle('dark-mode', !isDark);
+      body.classList.toggle('light-mode', isDark);
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+
+    // Header scroll
+    const hdr = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      hdr.classList.toggle('scrolled', window.scrollY > 40);
+      document.getElementById('backTop').classList.toggle('show', window.scrollY > 300);
+    }, { passive: true });
+
+    // Scroll to trip
+    function scrollToTrip(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const offset = document.getElementById('timelineNav').offsetHeight + 64;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    // Active timeline nav on scroll
+    const tripSections = document.querySelectorAll('.trip-section');
+    const navItems = document.querySelectorAll('.tn-item');
+    const navHeight = 130;
+    window.addEventListener('scroll', () => {
+      let current = 0;
+      tripSections.forEach((s, i) => {
+        if (window.scrollY >= s.offsetTop - navHeight) current = i;
+      });
+      navItems.forEach((n, i) => n.classList.toggle('active', i === current));
+    }, { passive: true });
+
+    // Reveal on scroll
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+  </script>
+</body>
+</html>
